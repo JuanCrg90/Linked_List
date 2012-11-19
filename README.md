@@ -5,11 +5,15 @@ A very simple linked list C library
 ----------------------------------------------------------------
 Library for handling linked lists
 
+Date: 11-19-2012
 
 Author: Juan Carlos Ruiz Gonzalez
+
 Universidad de Guanajuato
+
 Email: juancarlosruiz14@gmail.com
-Date: 11-19-2012
+
+
 
 This library contains functions for handling linked lists
 
