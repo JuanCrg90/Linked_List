@@ -14,3 +14,6 @@ SOURCES += \
 HEADERS += \
     $$HEADER/linklist.h
 
+OTHER_FILES += \
+    Readme.txt
+

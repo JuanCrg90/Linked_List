@@ -94,6 +94,7 @@ Node* searchByPos(List *L,int pos)
         printf("The beginning of the list is in the position one, the search could not be realized\n");
         return NULL;
     }
+
     if(pos>L->size)
     {
         printf("The position is out of range, the search could not be realized\n");
@@ -106,5 +107,62 @@ Node* searchByPos(List *L,int pos)
     }
 
     return ptr;
+}
 
+int deleteNodeByPos(List *L,int pos)
+{
+    Node *ptr,*prev;
+    int i=1;
+
+    ptr=L->head;
+    prev=NULL;
+    if(pos>L->size)
+    {
+        printf("The position is out of range, the delete will be omitted\n");
+        return FALSE;
+    }
+    if(pos==0)
+    {
+        printf("The list start at number one position, the zero position is an invalid value\n");
+        return FALSE;
+    }
+
+    if(pos==1)
+    {
+        L->head=L->head->nodeNext;
+        free(ptr);
+        L->size--;
+        return TRUE;
+    }
+
+    if(pos==2)
+    {
+        prev=ptr;
+        ptr=ptr->nodeNext;
+        prev->nodeNext=ptr->nodeNext;
+        free(ptr);
+        L->size--;
+        return TRUE;
+    }
+    while(i!=pos-1)
+    {
+        ptr=ptr->nodeNext;
+        prev=ptr;
+        i++;
+    }
+
+    ptr=ptr->nodeNext;
+    prev->nodeNext=ptr->nodeNext;
+    free(ptr);
+    L->size--;
+    return TRUE;
+}
+
+void destroyList(List *L)
+{
+    while(L->size!=0)
+    {
+        deleteNodeByPos(L,L->size);
+    }
+    isEmpty(L);
 }
