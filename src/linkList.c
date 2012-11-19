@@ -166,3 +166,29 @@ void destroyList(List *L)
     }
     isEmpty(L);
 }
+
+int isEmpty(List *L)
+{
+    if(L->head==NULL) //Empty
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+
+}
+
+void printList(List *L)
+{
+    Node *ptr;
+    ptr=L->head;
+    while(ptr!=NULL)
+    {
+        printf("%d-> ",ptr->data);
+        ptr=ptr->nodeNext;
+    }
+    printf("NULL\n");
+    printf("size=%d\n",L->size);
+}

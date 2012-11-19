@@ -13,7 +13,7 @@
 #define FALSE 0
 
 
-typedef char mytype;
+typedef int mytype; //Here is the data type
 
 typedef struct NODE_TAG
 {
@@ -37,7 +37,8 @@ void insertPos(List *L,mytype *d,int pos); //Inserts a node in the indicated pos
 Node* searchByPos(List *L,int pos); //Searchs the data contained in the given position
 int deleteNodeByPos(List *L,int pos); //Deletes a node in a given position
 void destroyList(List *L);//Destroy the list
-
+int isEmpty(List *L); //Verifies if the list is empty
+void printList(List *L); //Prints all the list and the Elements Quantity (the function prints integer values)
 
 
 #endif // LINKLIST_H

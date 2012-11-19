@@ -16,3 +16,4 @@ The functions include:
 * Empty check
 * Deleting node by position
 * Destroy the list
+* print the list (integer values)
