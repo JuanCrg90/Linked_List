@@ -5,7 +5,7 @@ A very simple linked list C library
 ----------------------------------------------------------------
 Library for handling linked lists
 
-Date: 11-19-2012
+Date: 11/01/2014
 
 Author: Juan Carlos Ruiz Gonzalez
 

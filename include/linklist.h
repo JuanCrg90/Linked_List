@@ -1,7 +1,10 @@
-/*
-  Juan Carlos Ruiz González
-  Universidad de Guanajuato
-  Linked list library
+/**
+* @file fuzzyrules.h
+* @brief Fuzzy Rules
+* @author: Juan Carlos Ruiz González
+* Universidad de Guanajuato
+* Email: juancarlosruiz14@gmail.com
+* @date 11/01/2014
 */
 #ifndef LINKLIST_H
 #define LINKLIST_H
@@ -13,11 +16,11 @@
 #define FALSE 0
 
 
-typedef int mytype; //Here is the data type
+
 
 typedef struct NODE_TAG
 {
-    mytype *data;
+    void *data;
     struct NODE_TAG *nodeNext;
 }Node;
 
@@ -28,17 +31,75 @@ typedef struct LIST_TAG
     int size;
 }List;
 
+/**
+ * @brief Initializes the list in NULL
+ * @param L
+ */
+List *initializeList();
 
-List initializeList(List *L); //Initializes the list in NULL
-Node* CreateNode(mytype *d); //Creates a node
-void insertBegin(List *L,mytype *d); //Inserts a node at the begin
-void insertEnd(List *L,mytype *d); //Inserts a node at the end
-void insertPos(List *L,mytype *d,int pos); //Inserts a node in the indicated position if the position is out of range the node is insert at the end
-Node* searchByPos(List *L,int pos); //Searchs the data contained in the given position
-int deleteNodeByPos(List *L,int pos); //Deletes a node in a given position
-void destroyList(List *L);//Destroy the list
-int isEmpty(List *L); //Verifies if the list is empty
-void printList(List *L); //Prints all the list and the Elements Quantity (the function prints integer values)
+/**
+ * @brief Creates a node
+ * @param d
+ * @return
+ */
+Node* createNode(void *d);
+
+/**
+ * @brief Free node
+ * @param n
+ */
+void freeNode(Node *n);
+
+/**
+ * @brief Verifies if the list is empty
+ * @param L
+ * @return Bool
+ */
+int isEmpty(List *L);
+
+
+/**
+ * @brief Inserts a node at the begin
+ * @param L
+ * @param d
+ */
+void insertBegin(List *L,void *d);
+
+/**
+ * @brief Inserts a node at the end
+ * @param L
+ * @param d
+ */
+void insertEnd(List *L,void *d);
+
+/**
+ * @brief Inserts a node in the indicated position if the position is out of range the node is insert at the end
+ * @param L
+ * @param d
+ * @param pos
+ */
+void insertPos(List *L,void *d,int pos);
+
+/**
+ * @brief Searchs the data contained in the given position
+ * @param L
+ * @param pos
+ * @return Node
+ */
+Node* searchByPos(List *L,int pos);
+/**
+ * @brief Deletes a node in a given position
+ * @param L
+ * @param pos
+ * @return Bool
+ */
+int deleteNodeByPos(List *L,int pos);
+
+/**
+ * @brief Destroy the list
+ * @param L
+ */
+void destroyList(List *L);
 
 
 #endif // LINKLIST_H

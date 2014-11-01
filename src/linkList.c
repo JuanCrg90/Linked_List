@@ -1,194 +1,168 @@
 #include "include/linklist.h"
 
-List initializeList(List *L)
+List *initializeList()
 {
-    L->head=NULL;
-    L->size=0;
-    return *L;
+    List *L;
+    L = (List*)malloc(sizeof(List));
+    L->head = NULL;
+    L->size = 0;
 
-
+    return L;
 }
 
 
-Node* CreateNode(mytype *d)
+Node* createNode(void *d)
 {
     Node *p;
-    p=(Node*)malloc(sizeof(Node));
-    p->data=(mytype*)malloc(sizeof(mytype));
-    p->data=d;
-    p->nodeNext=NULL;
+    p = (Node*)malloc(sizeof(Node));
+    p->data = malloc(sizeof(void*));
+    p->data = d;
+    p->nodeNext = NULL;
     return p;
 }
 
+void freeNode(Node *n)
+{
+    free(n);
+}
 
-void insertBegin(List *L,mytype *d)
+int isEmpty(List *L)
+{
+    if(L->head == NULL) //Empty
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+
+
+void insertBegin(List *L, void *d)
 {
     Node *n;
-    n=CreateNode(d);
+    n=createNode(d);
     n->nodeNext=L->head;
     L->head=n;
     L->size++;
 }
 
-
-void insertEnd(List *L,mytype *d)
+void insertEnd(List *L,void *d)
 {
-    Node *n;
-    n=L->head;
+    Node *aux = L->head;
 
-    if(n==NULL)
+    if(aux==NULL)
     {
-        L->head=CreateNode(d);
-        L->size++;
+        insertBegin(L,d);
     }
     else
     {
-        while(n->nodeNext!=NULL)
+        while(aux->nodeNext!=NULL)
         {
-            n=n->nodeNext;
-        }
-        n->nodeNext=CreateNode(d);
 
+            aux=aux->nodeNext;
+        }
+        aux->nodeNext=createNode(d);;
         L->size++;
     }
+
+
 }
 
-void insertPos(List *L,mytype *d,int pos)
+void insertPos(List *L,void *d,int pos)
 {
-    Node *n,*aux;
-    int i=1;
-    n=L->head;
+    Node *aux = L->head;
+    Node *aux2;
 
-    if(pos==1)
-    {
-        insertBegin(L,d);
-        return;
-    }
-    while(i!=pos-1)
-    {
-        n=n->nodeNext;
-        if(n->nodeNext==NULL)
-        {
-            printf("The position is out of range the node will be inserted at the end of the list\n");
-            insertEnd(L,d);
-            return;
-
-        }
-        i++;
-    }
-    aux=CreateNode(d);
-    aux->nodeNext=n->nodeNext;
-    n->nodeNext=aux;
-    L->size++;
-}
-
-
-Node* searchByPos(List *L,int pos)
-{
-    Node *ptr;
-    int i=1;
-    ptr=L->head;
+    int i = 0;
 
     if(pos==0)
     {
-        printf("The beginning of the list is in the position one, the search could not be realized\n");
-        return NULL;
+        insertBegin(L,d);
+    }
+    else
+    {
+        while(i<pos-1 && aux->nodeNext!=NULL )
+        {
+            aux = aux->nodeNext;
+            i++;
+        }
+        aux2=createNode(d);
+        aux2->nodeNext=aux->nodeNext;
+        aux->nodeNext=aux2;
+        L->size++;
     }
 
-    if(pos>L->size)
+
+}
+
+Node* searchByPos(List *L,int pos)
+{
+    Node *aux = L->head;
+    int i = 0;
+
+    if(pos < 0 || pos > (L->size-1))
     {
-        printf("The position is out of range, the search could not be realized\n");
         return NULL;
     }
-    while(i!=pos)
+    else
     {
-        ptr=ptr->nodeNext;
-        i++;
+        while(i != pos)
+        {
+            aux = aux->nodeNext;
+            i++;
+        }
     }
-
-    return ptr;
+    return aux;
 }
 
 int deleteNodeByPos(List *L,int pos)
 {
-    Node *ptr,*prev;
-    int i=1;
+    Node *aux = L->head;
+    Node *prev=NULL;
+    int i = 0;
 
-    ptr=L->head;
-    prev=NULL;
-    if(pos>L->size)
+    if(pos < 0 || pos > (L->size-1))
     {
-        printf("The position is out of range, the delete will be omitted\n");
         return FALSE;
     }
-    if(pos==0)
+    else
     {
-        printf("The list start at number one position, the zero position is an invalid value\n");
-        return FALSE;
+        if(pos == 0)
+        {
+            L->head=L->head->nodeNext;
+        }
+        else
+        {
+            do
+            {
+                prev = aux;
+                aux = aux->nodeNext;
+                i++;
+            }while(i<pos);
+
+            prev->nodeNext=aux->nodeNext;
+
+        }
     }
 
-    if(pos==1)
-    {
-        L->head=L->head->nodeNext;
-        free(ptr);
-        L->size--;
-        return TRUE;
-    }
-
-    if(pos==2)
-    {
-        prev=ptr;
-        ptr=ptr->nodeNext;
-        prev->nodeNext=ptr->nodeNext;
-        free(ptr);
-        L->size--;
-        return TRUE;
-    }
-    while(i!=pos-1)
-    {
-        ptr=ptr->nodeNext;
-        prev=ptr;
-        i++;
-    }
-
-    ptr=ptr->nodeNext;
-    prev->nodeNext=ptr->nodeNext;
-    free(ptr);
+    freeNode(aux);
     L->size--;
+
     return TRUE;
+
 }
 
 void destroyList(List *L)
 {
-    while(L->size!=0)
+    while(!isEmpty(L))
     {
-        deleteNodeByPos(L,L->size);
-    }
-    isEmpty(L);
-}
-
-int isEmpty(List *L)
-{
-    if(L->head==NULL) //Empty
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
+        deleteNodeByPos(L,0);
     }
 
 }
 
-void printList(List *L)
-{
-    Node *ptr;
-    ptr=L->head;
-    while(ptr!=NULL)
-    {
-        printf("%d-> ",ptr->data);
-        ptr=ptr->nodeNext;
-    }
-    printf("NULL\n");
-    printf("size=%d\n",L->size);
-}
+
+
