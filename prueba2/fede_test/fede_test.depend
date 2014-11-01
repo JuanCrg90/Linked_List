@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1413425185 source:c:\users\tejonbiker\documents\github\linked_list\src\linklist.c
+	"../include/linklist.h"
+
+1413424657 c:\users\tejonbiker\documents\github\linked_list\include\linklist.h
+	<stdio.h>
+	<stdlib.h>
+
+1413425378 source:c:\users\tejonbiker\documents\github\linked_list\prueba2\fede_test\linklist.c
+	"../../include/linklist.h"
+
+1413425490 source:c:\users\tejonbiker\documents\github\linked_list\prueba2\fede_test\main.c
+	<stdio.h>
+	<stdlib.h>
+	"../../include/linklist.h"
+

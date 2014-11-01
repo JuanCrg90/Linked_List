@@ -1,4 +1,5 @@
 #include "include/linklist.h"
+//#include "../include/linklist.h"
 
 List *initializeList()
 {
