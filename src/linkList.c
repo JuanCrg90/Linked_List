@@ -16,13 +16,17 @@ Node* createNode(void *d)
     Node *p;
     p = (Node*)malloc(sizeof(Node));
     p->data = malloc(sizeof(void*));
-    p->data = d;
+
+    memcpy(p->data,d,sizeof(void*));
+
     p->nodeNext = NULL;
+
     return p;
 }
 
 void freeNode(Node *n)
 {
+    free(n->data);
     free(n);
 }
 
